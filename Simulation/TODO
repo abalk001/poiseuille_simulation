@@ -1,0 +1,9 @@
+- Fix Poiseuille wall-distance: use nearest-wall gap d = min(y - r0, (W - y) - r0) in migration_velocity_poiseuille() instead of only (y - r0).
+- Replace forced centerline sign logic with a symmetric wall-lift direction rule (based on nearest wall or sum of both wall contributions).
+- Remove hard zero-velocity cutoffs near walls (1.5*r0); use smooth regularization (cap denominator, soft potential, or adaptive DT) to avoid “sticking zones”.
+- Make lift_velocity_coefficient(lambda, nu) depend on lambda and use a paper-based fit/table for U(lambda, nu) rather than the current ad hoc linear mapping.
+- Add timestep/stability safeguards: limit |Δy| per step; optionally use RK2/RK4 for dy/dt=v(y); warn if DT too large.
+- Reduce memory usage: stream CSV output each OUTPUT_INTERVAL instead of storing full arrays.
+- Improve boundary handling: ensure consistency between “center can’t cross walls” and the migration model; consider reflecting or strongly repulsive near-wall behavior.
+- Parameter validation: check W > 2*r0, nu in (0,1], U_max > 0, DT > 0; print warnings.
+- Add minimal regression/validation checks: verify v ~ 1/y^2 in simple shear and symmetry about W/2 in Poiseuille.
