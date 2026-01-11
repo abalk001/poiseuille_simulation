@@ -1,18 +1,26 @@
 #!/usr/bin/env python3
+"""
+Visualization of Vesicle Migration in Poiseuille Flow
+Reproduces key figures from Coupier et al. paper
+"""
 
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
 
+# Set style for publication-quality plots
 plt.style.use('seaborn-v0_8-darkgrid' if 'seaborn-v0_8-darkgrid' in plt.style.available else 'seaborn-darkgrid' if 'seaborn-darkgrid' in plt.style.available else 'default')
 
 def plot_trajectories():
+    """Plot vesicle migration trajectories"""
     fig, axes = plt.subplots(2, 2, figsize=(14, 10))
     
+    # Load data
     poiseuille = pd.read_csv('poiseuille_trajectory.csv')
     simple_shear = pd.read_csv('simple_shear_trajectory.csv')
     
+    # Plot 1: Position vs Time
     ax = axes[0, 0]
     ax.plot(poiseuille['time'], poiseuille['position_um'], 'b-', linewidth=2, label='Poiseuille Flow')
     ax.plot(simple_shear['time'], simple_shear['position_um'], 'r--', linewidth=2, label='Simple Shear')
@@ -23,6 +31,7 @@ def plot_trajectories():
     ax.legend(fontsize=10)
     ax.grid(True, alpha=0.3)
     
+    # Plot 2: Velocity vs Position
     ax = axes[0, 1]
     ax.plot(poiseuille['position_um'], poiseuille['velocity_um_s'], 'b-', linewidth=2, label='Poiseuille')
     ax.plot(simple_shear['position_um'], simple_shear['velocity_um_s'], 'r--', linewidth=2, label='Simple Shear')
@@ -32,6 +41,7 @@ def plot_trajectories():
     ax.legend(fontsize=10)
     ax.grid(True, alpha=0.3)
     
+    # Plot 3: Normalized position vs time
     ax = axes[1, 0]
     ax.plot(poiseuille['time'], poiseuille['y_normalized'], 'b-', linewidth=2, label='Poiseuille Flow')
     ax.plot(simple_shear['time'], simple_shear['y_normalized'], 'r--', linewidth=2, label='Simple Shear')
@@ -43,6 +53,7 @@ def plot_trajectories():
     ax.grid(True, alpha=0.3)
     ax.set_ylim([0, 1])
     
+    # Plot 4: Shear rate profile
     ax = axes[1, 1]
     ax.plot(poiseuille['position_um'], poiseuille['shear_rate'], 'b-', linewidth=2, label='Poiseuille (variable)')
     ax.plot(simple_shear['position_um'], simple_shear['shear_rate'], 'r--', linewidth=2, label='Simple Shear (constant)')
@@ -58,10 +69,13 @@ def plot_trajectories():
     plt.close()
 
 def plot_scaling_law():
+    """Plot 1/y^2 scaling law validation"""
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
     
+    # Load validation data
     data = pd.read_csv('validation_input.csv')
     
+    # Plot 1: Velocity vs Position (linear scale)
     ax = axes[0]
     ax.plot(data['distance_from_wall_um'], data['velocity_um_s'] * 1e6, 'bo-', linewidth=2, markersize=8)
     ax.set_xlabel('Distance from wall (μm)', fontsize=12)
@@ -69,20 +83,25 @@ def plot_scaling_law():
     ax.set_title('Wall-Induced Lift: 1/y² Scaling', fontsize=14, fontweight='bold')
     ax.grid(True, alpha=0.3)
     
+    # Add theoretical fit
     y_theory = np.linspace(data['distance_from_wall_um'].min(), 
                            data['distance_from_wall_um'].max(), 100)
+    # v ∝ 1/y^2
     v_theory = data['velocity_um_s'].iloc[0] * 1e6 * (data['distance_from_wall_um'].iloc[0] / y_theory)**2
     ax.plot(y_theory, v_theory, 'r--', linewidth=1.5, label='Theory: v ∝ 1/y²', alpha=0.7)
     ax.legend(fontsize=10)
     
+    # Plot 2: Log-log plot to verify exponent
     ax = axes[1]
     ax.loglog(data['distance_from_wall_um'], data['velocity_um_s'] * 1e6, 'bo-', 
               linewidth=2, markersize=8, label='Simulation Data')
     
+    # Fit power law
     log_y = np.log(data['distance_from_wall_um'])
     log_v = np.log(data['velocity_um_s'] * 1e6)
     slope, intercept = np.polyfit(log_y, log_v, 1)
     
+    # Plot fit
     y_fit = np.linspace(data['distance_from_wall_um'].min(), 
                         data['distance_from_wall_um'].max(), 100)
     v_fit = np.exp(intercept) * y_fit**slope
@@ -101,10 +120,13 @@ def plot_scaling_law():
     plt.close()
 
 def plot_deflation_effect():
+    """Plot effect of deflation on migration (Figure 4 from paper)"""
     fig, ax = plt.subplots(figsize=(10, 6))
     
+    # Load deflation comparison data
     data = pd.read_csv('deflation_comparison.csv')
     
+    # Plot each deflation
     colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
     nu_values = [0.95, 0.90, 0.85, 0.80, 0.75]
     
@@ -121,6 +143,7 @@ def plot_deflation_effect():
     ax.legend(title='Reduced Volume', fontsize=10)
     ax.grid(True, alpha=0.3)
     
+    # Add annotation
     ax.text(0.05, 0.95, 'Higher deflation (lower ν)\n→ Stronger migration', 
             transform=ax.transAxes, fontsize=10, verticalalignment='top',
             bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
@@ -131,10 +154,12 @@ def plot_deflation_effect():
     plt.close()
 
 def print_summary():
+    """Print summary of results"""
     print("\n" + "="*60)
     print("VESICLE MIGRATION SIMULATION SUMMARY")
     print("="*60)
     
+    # Load final positions
     poiseuille = pd.read_csv('poiseuille_trajectory.csv')
     simple_shear = pd.read_csv('simple_shear_trajectory.csv')
     
@@ -174,11 +199,13 @@ def print_summary():
     print("\n")
 
 def main():
+    """Main execution"""
     print("\n╔═══════════════════════════════════════════════════════════╗")
     print("║         VESICLE MIGRATION VISUALIZATION                  ║")
     print("║  Based on Coupier et al., MRS Symp. Proc. 1132 (2009)   ║")
     print("╚═══════════════════════════════════════════════════════════╝\n")
     
+    # Check if data files exist
     required_files = ['poiseuille_trajectory.csv', 'simple_shear_trajectory.csv',
                      'validation_input.csv', 'deflation_comparison.csv']
     
@@ -190,10 +217,12 @@ def main():
     
     print("Generating plots...\n")
     
+    # Create all plots
     plot_trajectories()
     plot_scaling_law()
     plot_deflation_effect()
     
+    # Print summary
     print_summary()
     
     print("📊 All plots generated successfully!")

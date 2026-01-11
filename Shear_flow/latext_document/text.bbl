@@ -1,0 +1,99 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global/global}
+    \entry{coupier2009}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=4b681ca4b0a0dade67b2a9075bfc22d1}{%
+           family={Coupier},
+           familyi={C\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+        {{hash=5c60b476fcac5b55bf18797853ab6083}{%
+           family={Kaoui},
+           familyi={K\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+        {{hash=f8e8037669a803c7d0ccb721787d751a}{%
+           family={Podgorski},
+           familyi={P\bibinitperiod},
+           given={T.},
+           giveni={T\bibinitperiod}}}%
+        {{hash=9fb0a3f8bcc6b32e8b6b3ffbf93a5b64}{%
+           family={Misbah},
+           familyi={M\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{3306de169428fc9d67adf8a91bf737f5}
+      \strng{fullhash}{b10e74f21111e18f686ba859b4596855}
+      \strng{fullhashraw}{b10e74f21111e18f686ba859b4596855}
+      \strng{bibnamehash}{3306de169428fc9d67adf8a91bf737f5}
+      \strng{authorbibnamehash}{3306de169428fc9d67adf8a91bf737f5}
+      \strng{authornamehash}{3306de169428fc9d67adf8a91bf737f5}
+      \strng{authorfullhash}{b10e74f21111e18f686ba859b4596855}
+      \strng{authorfullhashraw}{b10e74f21111e18f686ba859b4596855}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Materials Research Society Symposium Proceedings}
+      \field{title}{Lateral migration and segregation of vesicles with viscosity contrast in simple shear and Poiseuille flows}
+      \field{volume}{1132}
+      \field{year}{2009}
+      \verb{doi}
+      \verb https://doi.org/10.1557/PROC-1132-Z02-09
+      \endverb
+    \endentry
+    \entry{olla1997}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=5750704132098c767676d2f9a7f09275}{%
+           family={Olla},
+           familyi={O\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{5750704132098c767676d2f9a7f09275}
+      \strng{fullhash}{5750704132098c767676d2f9a7f09275}
+      \strng{fullhashraw}{5750704132098c767676d2f9a7f09275}
+      \strng{bibnamehash}{5750704132098c767676d2f9a7f09275}
+      \strng{authorbibnamehash}{5750704132098c767676d2f9a7f09275}
+      \strng{authornamehash}{5750704132098c767676d2f9a7f09275}
+      \strng{authorfullhash}{5750704132098c767676d2f9a7f09275}
+      \strng{authorfullhashraw}{5750704132098c767676d2f9a7f09275}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal de Physique II}
+      \field{number}{10}
+      \field{title}{The lift on a tank-treading ellipsoidal cell in a shear flow}
+      \field{volume}{7}
+      \field{year}{1997}
+      \field{pages}{1533\bibrangedash 1540}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1051/jp2:1997201
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
